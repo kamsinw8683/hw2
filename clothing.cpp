@@ -6,13 +6,27 @@
 Clothing::Clothing(const std::string& category, const std::string& name, double price, int qty, const std::string& size, const std::string& brand)
     : Product(category, name, price, qty), size_(size), brand_(brand) {}
 
-std::set<std::string> Clothing::keywords() const {
-    std::set<std::string> keywords_set = parseStringToWords(name_);
-    std::set<std::string> brand_keywords = parseStringToWords(brand_);
+std::set<std::string> Clothing::keywords() const
+{
+    std::set<std::string> words;
+
     
-    keywords_set.insert(brand_keywords.begin(), brand_keywords.end());
+
+    // Parse product name
+    std::set<std::string> nameWords = parseStringToWords(name_);
+    words.insert(nameWords.begin(), nameWords.end());
+
+    // Parse author name
+    std::set<std::string> brand = parseStringToWords(getBrand());
+    words.insert(brand.begin(), brand.end());
+
+    // Add ISBN as a keyword
+    words.insert(getSize());
+    words.insert(getCategory());
+
     
-    return keywords_set;
+
+    return words;
 }
 
 std::string Clothing::displayString() const {

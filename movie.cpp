@@ -7,13 +7,27 @@ Movie::Movie(const std::string& category, const std::string& name, double price,
              const std::string& genre, const std::string& rating)
     : Product(category, name, price, qty), genre_(genre), rating_(rating) {}
 
-std::set<std::string> Movie::keywords() const {
-    std::set<std::string> keywords_set = parseStringToWords(name_);
-    std::set<std::string> genre_keywords = parseStringToWords(genre_);
+std::set<std::string> Movie::keywords() const
+{
+    std::set<std::string> words;
+
     
-    keywords_set.insert(genre_keywords.begin(), genre_keywords.end());
+
+    // Parse product name
+    std::set<std::string> nameWords = parseStringToWords(name_);
+    words.insert(nameWords.begin(), nameWords.end());
+
+    // Parse author name
+    std::set<std::string> brand = parseStringToWords(getGenre());
+    words.insert(brand.begin(), brand.end());
+
+    // Add ISBN as a keyword
+    words.insert(getRating());
+    words.insert(getCategory());
+
     
-    return keywords_set;
+
+    return words;
 }
 
 std::string Movie::displayString() const {

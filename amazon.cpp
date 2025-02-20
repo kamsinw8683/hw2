@@ -83,8 +83,14 @@ int main(int argc, char* argv[])
                     cout << "No search terms provided" << endl;
                     continue;
                 }
-                
-                hits = ds.search(terms, (cmd == "AND" ? 0 : 1));
+                int mode;
+                if (cmd == "AND") {
+                    mode = 0;
+                } else {
+                    mode = 1;
+                }
+
+                hits = ds.search(terms, mode);
                 displayProducts(hits);
             }
             else if ( cmd == "ADD") {

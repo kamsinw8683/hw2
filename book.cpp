@@ -8,14 +8,27 @@ Book::Book(const std::string& category, const std::string& name, double price, i
 {
 }
 
-std::set<std::string> Book::keywords() const {
-    std::set<std::string> keywords_set = parseStringToWords(name_);
-    std::set<std::string> author_keywords = parseStringToWords(author_);
+std::set<std::string> Book::keywords() const
+{
+    std::set<std::string> words;
+
     
-    keywords_set.insert(isbn_);
-    keywords_set.insert(author_keywords.begin(), author_keywords.end());
+
+    // Parse product name
+    std::set<std::string> nameWords = parseStringToWords(name_);
+    words.insert(nameWords.begin(), nameWords.end());
+
+    // Parse author name
+    std::set<std::string> authorWords = parseStringToWords(author_);
+    words.insert(authorWords.begin(), authorWords.end());
+
+    // Add ISBN as a keyword
+    words.insert(isbn_);
+    words.insert(getCategory());
+
     
-    return keywords_set;
+
+    return words;
 }
 
 std::string Book::displayString() const {

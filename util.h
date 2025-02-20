@@ -39,10 +39,7 @@ template <typename T>
 std::set<T> setUnion(std::set<T>& s1, std::set<T>& s2)
 {
     std::set<T> unionSet = s1;
-    for (typename std::set<T>::iterator it = s2.begin(); it != s2.end(); ++it)
-    {
-        unionSet.insert(*it);
-    }
+    unionSet.insert(s2.begin(), s2.end());
     return unionSet;
 
 }
