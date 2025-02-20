@@ -162,14 +162,28 @@ Product* ProductSectionParser::parseProduct(const string& category,
         std::string& errorMsg)
 {
     bool error = false;
+    
+    // Find the appropriate product parser for the category
     map<string,ProductParser*>::iterator it = prodParsers_.find(category);
-    if(it != prodParsers_.end()) {
-        return it->second->parse(category, is, error, errorMsg, lineno);
+    
+    if (it != prodParsers_.end()) {
+        // Attempt to parse the product
+        Product* product = it->second->parse(category, is, error, errorMsg, lineno);
+        
+        // Additional error checking
+        if (error || product == NULL) {
+            // If parsing failed, set an error message
+            if (errorMsg.empty()) {
+                errorMsg = "Failed to parse product in category: " + category;
+            }
+            return NULL;
+        }
+        
+        return product;
     }
     else {
-        //error_ = true;
-        string msg = "No product parser available for category: ";
-        errorMsg =  msg + category;
+        // No parser available for this category
+        errorMsg = "No product parser available for category: " + category;
         return NULL;
     }
 }
