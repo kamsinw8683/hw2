@@ -18,7 +18,15 @@ MyDataStore::~MyDataStore() {
 
 // Explicit addProduct method definition
 void MyDataStore::addProduct(Product* p) {
-    if (!p) return;
+    if (!p) {
+        return;
+    }
+
+    // Validate product name and keywords
+    std::string name = p->getName();
+    if (name.empty()) {
+        return;
+    }
 
     // Store product in overall product set
     allProducts.insert(p);
@@ -26,19 +34,31 @@ void MyDataStore::addProduct(Product* p) {
     // Add to keyword index
     std::set<std::string> keywords = p->keywords();
     for (const std::string& keyword : keywords) {
-        productsByKeyword[keyword].insert(p);
+        // Validate keyword before inserting
+        if (!keyword.empty()) {
+            productsByKeyword[keyword].insert(p);
+        }
     }
 }
 
 // Explicit addUser method definition
 void MyDataStore::addUser(User* u) {
-    if (!u) return;
+     // Validate input
+    if (!u) {
+        return;
+    }
+
+    // Validate username
+    std::string username = u->getName();
+    if (username.empty()) {
+        return;
+    }
 
     // Store user in overall user set
     allUsers.insert(u);
 
     // Add to users map by username
-    users[u->getName()] = u;
+    users[username] = u;
 }
 
 std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int type) {
