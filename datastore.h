@@ -29,7 +29,7 @@ public:
      * Adds a user to the data store
      */
     virtual void addUser(User* u) = 0;
-
+    
     /**
      * Performs a search of products whose keywords match the given "terms"
      *  type 0 = AND search (intersection of results for each term) while

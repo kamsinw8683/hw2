@@ -25,7 +25,10 @@ public:
      * Returns a string to display the product info for hits of the search
      */
     virtual std::string displayString() const = 0;
-
+       /**
+     * Returns the category of the product
+     */
+    virtual std::string getCategory() const;
     /**
      * Outputs the product info in the database format
      */

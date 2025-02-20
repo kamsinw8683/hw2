@@ -38,7 +38,10 @@ int Product::getQty() const
 {
     return qty_;
 }
-
+std::string Product::getCategory() const
+{
+    return category_;
+}
 /**
  * default implementation...can be overriden in a future
  * assignment
