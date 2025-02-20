@@ -16,25 +16,29 @@ MyDataStore::~MyDataStore() {
     }
 }
 
-// Explicit addProduct method definition
 void MyDataStore::addProduct(Product* p) {
-    if (!p) {
+    // Validate input pointer
+    if (p == nullptr) {
         return;
     }
 
-    // Validate product name and keywords
+    // Validate product name
     std::string name = p->getName();
     if (name.empty()) {
         return;
     }
 
-    // Store product in overall product set
+    // Check for duplicate product
+    if (allProducts.find(p) != allProducts.end()) {
+        return;
+    }
+
+    // Add to product set
     allProducts.insert(p);
 
-    // Add to keyword index
+    // Index keywords
     std::set<std::string> keywords = p->keywords();
     for (const std::string& keyword : keywords) {
-        // Validate keyword before inserting
         if (!keyword.empty()) {
             productsByKeyword[keyword].insert(p);
         }
