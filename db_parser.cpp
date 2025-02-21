@@ -34,9 +34,6 @@ void DBParser::addSectionParser(const std::string& sectionName,
 }
 bool DBParser::parse(string db_filename, DataStore& ds)
 {
-#ifdef DEBUG
-    cout << "Starting parsing" << endl;
-#endif
     ifstream ifile(db_filename.c_str());
     if(ifile.fail()) {
         return true;
@@ -50,18 +47,12 @@ bool DBParser::parse(string db_filename, DataStore& ds)
     stringstream sectionText;
     while(!ifile.fail() && !error_) {
         getline(ifile, line);
-#ifdef DEBUG
-        cout << "Line: " << line << endl;
-#endif
         trim(line); // remove whitespace on either end
         if(state == FIND_SECTION) {
             if((line.size() > 2) && line[0] == '<' && line[line.size()-1] == '>') {
                 state = IN_SECTION;
                 sectionName = line.substr(1,line.size()-2);
                 startLineNo = lineno_ + 1;
-#ifdef DEBUG
-                cout << "Found section: " << sectionName << endl;
-#endif
                 sectionText.clear();
                 sectionText.str("");
             }
@@ -81,9 +72,6 @@ bool DBParser::parse(string db_filename, DataStore& ds)
                     cerr << "No section parser available for " << sectionName << "..skipping!" << endl;
                 }
                 state = FIND_SECTION;
-#ifdef DEBUG
-                cout << "End section: " << sectionName << endl;
-#endif
             }
             else {
                 sectionText << line << '\n';
