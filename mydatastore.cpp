@@ -120,7 +120,7 @@ void MyDataStore::dump(std::ostream& ofile) {
 void MyDataStore::addToCart(std::string username, Product* p) {
     // Check if user exists
     if (users.find(username) == users.end()) {
-        std::cout << "Invalid username" << std::endl;
+        std::cout << "Invalid request" << std::endl;
         return;
     }
 
@@ -148,7 +148,7 @@ void MyDataStore::viewCart(std::string username) {
 void MyDataStore::buyCart(std::string username) {
     // Check if user exists
     if (users.find(username) == users.end()) {
-        std::cout << "Invalid Request" << std::endl;
+        std::cout << "Invalid username" << std::endl;
         return;
     }
 
