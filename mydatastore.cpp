@@ -95,13 +95,11 @@ std::vector<Product*> MyDataStore::search(std::vector<std::string>& terms, int t
 
 // Explicit dump method definition
 void MyDataStore::dump(std::ostream& ofile) {
-    void dump(std::ostream& ofile)
-{
     // Always write products section
     ofile << "<products>" << std::endl;
     
     // If products exist, dump them
-    for (Product* p : products_) {
+    for (Product* p : allProducts) {
         p->dump(ofile);
     }
     
@@ -111,13 +109,11 @@ void MyDataStore::dump(std::ostream& ofile) {
     ofile << "<users>" << std::endl;
     
     // If users exist, dump them
-    for (map<string, User*>::iterator it = users_.begin(); 
-         it != users_.end(); ++it) {
-        it->second->dump(ofile);
-    }
+    for (User* u : allUsers) {
+    u->dump(ofile);
+}
     
     ofile << "</users>" << std::endl;
-}
 }
 
 // Explicit addToCart method definition
