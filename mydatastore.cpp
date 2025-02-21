@@ -148,7 +148,7 @@ void MyDataStore::viewCart(std::string username) {
 void MyDataStore::buyCart(std::string username) {
     // Check if user exists
     if (users.find(username) == users.end()) {
-        std::cout << "Invalid username" << std::endl;
+        std::cout << "Invalid Request" << std::endl;
         return;
     }
 
