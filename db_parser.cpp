@@ -125,7 +125,7 @@ void ProductSectionParser::addProductParser(ProductParser* p)
 }
 
 
-bool ProductSectionParser::parse(
+bool ProductSectionParser::parse( 
     std::istream& is,
     DataStore& ds,
     int& lineno,
